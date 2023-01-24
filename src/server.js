@@ -6,6 +6,7 @@ const connect = require('./config/db')
 const PORT = process.env.PORT || 8080;
 
 const userRoute = require('./routes/user')
+const jobsRoute = require('./routes/adminRoutes')
 
 // crating server
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 // routes
 app.use('/user',userRoute)
+app.use('/admin',jobsRoute)
 
 
 app.get('/',(req,res)=>{

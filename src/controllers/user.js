@@ -20,11 +20,12 @@ const createUser = async(req,res)=>{
         };
             const newUser = new User({
             name,email,
-            hash:await argon.hash(password)
+            hash:await argon.hash(password),
+            role
         });
         
         await newUser.save();
-        res.status(201).send({msg:"User Registerd Successfully"})
+        res.status(201).send({msg:"User Registerd Successfully",newUser})
 
  
     }catch(err){
@@ -55,7 +56,7 @@ const loginUser = async(req,res)=>{
             expiresIn:"28d"
         });
 
-        res.send({msg:"login sucessfully",token})
+        res.send({msg:"login sucessfully",token,role:user.role});
 
     }catch(err){
         res.status(500).send({msg:err.message})
